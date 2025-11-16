@@ -2,7 +2,7 @@
 MemLayer - A lightweight memory layer for LLM applications
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 
 # Lazy imports to speed up package loading
 def __getattr__(name):
