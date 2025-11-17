@@ -6,37 +6,6 @@ Memlayer is a memory-enhanced LLM wrapper that automatically builds and maintain
 
 ## Core Architecture
 
-### Components
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Your Application                          │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  Memlayer Client                             │
-│  (OpenAI / Claude / Gemini / Ollama wrapper)                │
-└─────┬──────────────────┬──────────────────┬─────────────────┘
-      │                  │                  │
-      ▼                  ▼                  ▼
-┌──────────┐    ┌─────────────────┐   ┌──────────────┐
-│  Search  │    │  Consolidation  │   │   Curation   │
-│ Service  │    │    Service      │   │   Service    │
-└────┬─────┘    └────────┬────────┘   └──────┬───────┘
-     │                   │                    │
-     │                   │                    │
-     ▼                   ▼                    ▼
-┌─────────────────────────────────────────────────────────────┐
-│               Knowledge Graph Storage                        │
-│                                                              │
-│  ┌──────────────┐        ┌──────────────────┐              │
-│  │   ChromaDB   │        │  NetworkX Graph  │              │
-│  │ (Vector Store)│       │ (Entity Relations)│             │
-│  └──────────────┘        └──────────────────┘              │
-└─────────────────────────────────────────────────────────────┘
-```
-
 ### How It Works
 
 1. **Chat Flow**: When you send a message via `.chat()`, Memlayer:

@@ -22,7 +22,7 @@ Memlayer supports multiple LLM providers with a unified API. Each provider has s
 - **Best for**: Multimodal applications, cost efficiency
 - **Setup**: Requires `GOOGLE_API_KEY` environment variable
 
-### [Ollama (Local Models)](./ollama.md) 🆕
+### [Ollama (Local Models)](./ollama.md) 
 - **Models**: Llama 3.2, Llama 3.1, Mistral, Phi 3, 100+ more
 - **Streaming**: ✅ Full support
 - **Best for**: Privacy, offline use, zero API costs

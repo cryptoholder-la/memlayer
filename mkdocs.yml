@@ -1,0 +1,58 @@
+site_name: MemLayer Documentation
+site_url: https://divagr18.github.io/memlayer
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: black
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+    # Light mode
+    - scheme: default
+      primary: black
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+
+docs_dir: docs
+
+nav:
+  - Overview:
+      - API Reference: API_REFERENCE.md
+
+  - Basics:
+      - Quickstart: basics/quickstart.md
+      - Overview: basics/overview.md
+      - Operation Modes: basics/operation_modes.md
+      - Streaming: basics/streaming.md
+
+  - Providers:
+      - Provider Overview: providers/README.md
+      - OpenAI: providers/openai.md
+      - Claude: providers/claude.md
+      - Gemini: providers/gemini.md
+      - Ollama: providers/ollama.md
+
+  - Services:
+      - Consolidation: services/consolidation.md
+      - Curation: services/curation.md
+
+  - Storage:
+      - Chroma: storage/chroma.md
+      - NetworkX Graph: storage/networkx.md
+
+  - Tuning:
+      - Salience Threshold: tuning/salience_threshold.md
+      - Intervals: tuning/intervals.md
+      - Operation Modes (advanced): tuning/operation_mode.md

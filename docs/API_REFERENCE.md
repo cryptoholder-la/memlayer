@@ -48,7 +48,7 @@ client = OpenAI(
 ```python
 client = Claude(
     api_key="sk-ant-...",
-    model="claude-3-5-sonnet-20241022",
+    model="claude-4-sonnet",
     user_id="alice"
 )
 ```

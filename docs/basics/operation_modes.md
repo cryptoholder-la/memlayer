@@ -4,7 +4,7 @@ Memlayer supports three operating modes, each optimized for different use cases.
 
 **Key Difference:** These modes control **both salience filtering AND storage architecture**.
 
-## 🖥️ LOCAL Mode (Default)
+##  LOCAL Mode (Default)
 
 **Best for:** High-volume applications, offline usage, no ongoing costs
 
@@ -36,7 +36,7 @@ client = OpenAI(
 
 ---
 
-## ☁️ ONLINE Mode
+##  ONLINE Mode
 
 **Best for:** Production apps, serverless functions, fast cold starts
 
@@ -74,7 +74,7 @@ client = OpenAI(
 
 ---
 
-## 🚀 LIGHTWEIGHT Mode
+##  LIGHTWEIGHT Mode
 
 **Best for:** Prototyping, resource-constrained environments, maximum speed
 
