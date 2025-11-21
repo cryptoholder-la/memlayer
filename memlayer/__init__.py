@@ -1,27 +1,49 @@
-"""
-Memlayer - A lightweight memory layer for LLM applications
+"""MemLayer package exports.
+
+All heavy submodules are imported lazily via :func:`__getattr__` so that a
+simple ``import memlayer`` is cheap and works in constrained environments.
+
+Supported exports:
+
+- ``Memory``
+- ``OpenAI``
+- ``Claude``
+- ``Gemini``
+- ``Ollama``
 """
 
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 
-# Lazy imports to speed up package loading
+
 def __getattr__(name):
+    """Lazily import and return top-level symbols.
+
+    This keeps ``import memlayer`` fast and avoids importing heavy optional
+    dependencies at package import time. When a symbol is first accessed the
+    real implementation is imported from the appropriate submodule.
+    """
     if name == "Memory":
         from .client import Memory
+
         return Memory
-    elif name == "OpenAI":
+    if name == "OpenAI":
         from .wrappers import OpenAI
+
         return OpenAI
-    elif name == "Claude":
+    if name == "Claude":
         from .wrappers import Claude
+
         return Claude
-    elif name == "Gemini":
+    if name == "Gemini":
         from .wrappers import Gemini
+
         return Gemini
-    elif name == "Ollama":
+    if name == "Ollama":
         from .wrappers import Ollama
+
         return Ollama
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
 
 __all__ = ["Memory", "OpenAI", "Claude", "Gemini", "Ollama"]
 

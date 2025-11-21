@@ -13,7 +13,8 @@ client = OpenAI(
     model="gpt-4.1-mini",  # or "gpt-4", "gpt-5", etc.
     temperature=0.7,
     storage_path="./my_chat_memories",
-    user_id="user_123"
+    user_id="user_123",
+    operation_mode="online"
 )
 
 # Example conversation 1: Teaching the AI about preferences

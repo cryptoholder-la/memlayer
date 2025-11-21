@@ -56,3 +56,7 @@ nav:
       - Salience Threshold: tuning/salience_threshold.md
       - Intervals: tuning/intervals.md
       - Operation Modes (advanced): tuning/operation_mode.md
+extra:
+  analytics:
+    provider: google
+    property: G-BP0L927VBV
