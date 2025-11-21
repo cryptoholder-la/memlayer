@@ -51,15 +51,7 @@ Leave this running in a terminal. Default address: `http://localhost:11434`
 ### Pull a Model
 
 ```bash
-# Recommended: Llama 3.2 (3B parameters, fast)
-ollama pull llama3.2
-
-# Or Llama 3.1 (8B parameters, more capable)
-ollama pull llama3.1
-
-# Or Mistral (7B parameters, good balance)
-ollama pull mistral
-```
+ollama pull qwen3:14b
 
 ### Basic Usage
 
@@ -68,7 +60,7 @@ from memlayer.wrappers.ollama import Ollama
 
 # Initialize with local model
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b,
     host="http://localhost:11434",
     user_id="alice",
     operation_mode="local"  # Use local embeddings too
@@ -91,50 +83,21 @@ print(response)  # "You work on Project Phoenix"
 
 ## Recommended Models
 
-### For Speed (< 2s response time)
+Since Memlayer relies on **Tool Calling** and **JSON Extraction** for memory management, you must use models capable of instruction following.
 
-```bash
-# Llama 3.2 - 3B params, excellent for chat
-ollama pull llama3.2
+### For Speed (< 2s response)
+* **Gemma 3 (1B–3B, Instruct)** – Extremely fast, long context, very efficient.
+* **Instella-3B (Instruct)** – New 2025 lightweight model optimized for instruction-following.
+* **Mistral Small 3.1 (Efficient 24B, Instruct)** – Higher params but highly optimized for low-latency inference.
 
-# Phi 3 - 3.8B params, Microsoft model
-ollama pull phi3
-```
+### For Quality (Standard)
+* **Qwen 3 (32B, Instruct)** – Excellent logic, tool use, and long context.
+* **Llama 4 (8B–70B, Scout/Maverick variants)** – The new industry standard for local models in 2025.
+* **Mistral Medium 3 (~24–32B, Instruct)** – Strong balance of performance and compute cost.
 
-```python
-client = Ollama(model="llama3.2", operation_mode="local")
-```
-
-### For Quality (2-5s response time)
-
-```bash
-# Llama 3.1 - 8B params, very capable
-ollama pull llama3.1
-
-# Mistral - 7B params, good instruction following
-ollama pull mistral
-
-# Gemma 2 - 9B params, Google model
-ollama pull gemma2
-```
-
-```python
-client = Ollama(model="llama3.1", operation_mode="local")
-```
-
-### For Best Quality (5-15s response time)
-
-```bash
-# Llama 3.1 - 70B params (needs 40GB RAM)
-ollama pull llama3.1:70b
-
-# Mixtral - 47B params, MoE architecture
-ollama pull mixtral:8x7b
-```
-
-```python
-client = Ollama(model="llama3.1:70b", operation_mode="local")
-```
+### For Best Performance
+* **Qwen 3 (235B-A22B hybrid)** – State-of-the-art reasoning with massive context windows.
+* **Llama 4 Behemoth (Large-scale)** – High-end open model with near GPT-4.5-class capability.
 
 ---
 
@@ -147,7 +110,7 @@ from memlayer.wrappers.ollama import Ollama
 
 client = Ollama(
     # Model settings
-    model="llama3.2",
+    model="qwen3:14b",
     host="http://localhost:11434",
     
     # Memory settings
@@ -174,7 +137,7 @@ client = Ollama(
 **Local mode (recommended):**
 ```python
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     operation_mode="local"  # Local embeddings, fully offline
 )
 # First call: ~5-10s (loads sentence-transformer model)
@@ -187,7 +150,7 @@ import os
 os.environ["OPENAI_API_KEY"] = "your-key"
 
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     operation_mode="online"  # LLM local, embeddings via OpenAI API
 )
 # Faster startup, but requires internet for embeddings
@@ -196,7 +159,7 @@ client = Ollama(
 **Lightweight mode (fastest startup):**
 ```python
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     operation_mode="lightweight"  # No embeddings, graph-only
 )
 # Instant startup, keyword-based search only
@@ -211,7 +174,7 @@ Ollama fully supports streaming responses:
 ```python
 from memlayer.wrappers.ollama import Ollama
 
-client = Ollama(model="llama3.2", operation_mode="local")
+client = Ollama(model="qwen3:14b", operation_mode="local")
 
 # Stream response chunks
 for chunk in client.chat([
@@ -237,7 +200,7 @@ from memlayer.wrappers.ollama import Ollama
 
 # Fully offline - no internet required
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     host="http://localhost:11434",
     operation_mode="local",  # Local sentence-transformer for embeddings
     user_id="alice"
@@ -253,7 +216,7 @@ client = Ollama(
 **First-time setup:**
 ```bash
 # Pull model (one-time, requires internet)
-ollama pull llama3.2
+ollama pull qwen3:14b
 
 # First Python call downloads embedding model (one-time)
 # Model: all-MiniLM-L6-v2 (~80MB)
@@ -270,7 +233,7 @@ ollama pull llama3.2
 ```python
 # Remote Ollama server
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     host="http://192.168.1.100:11434",  # Remote server
     operation_mode="local"
 )
@@ -280,7 +243,7 @@ client = Ollama(
 
 ```python
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     num_ctx=8192,  # Increase context window (if model supports it)
 )
 ```
@@ -289,7 +252,7 @@ client = Ollama(
 
 ```python
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     temperature=0.3,  # Lower = more focused, higher = more creative
 )
 ```
@@ -298,7 +261,7 @@ client = Ollama(
 
 ```python
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b",
     operation_mode="local",
     embedding_model="all-mpnet-base-v2"  # Better quality, slower
 )
@@ -423,7 +386,7 @@ import time
 
 # Initialize fully offline client
 client = Ollama(
-    model="llama3.2",
+    model="qwen3:14b,
     host="http://localhost:11434",
     operation_mode="local",
     user_id="alice"

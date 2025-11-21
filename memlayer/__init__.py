@@ -1,4 +1,4 @@
-"""MemLayer package exports.
+"""Memlayer package exports.
 
 All heavy submodules are imported lazily via :func:`__getattr__` so that a
 simple ``import memlayer`` is cheap and works in constrained environments.
@@ -22,6 +22,9 @@ def __getattr__(name):
     dependencies at package import time. When a symbol is first accessed the
     real implementation is imported from the appropriate submodule.
     """
+    if name == "LMStudio":
+        from .wrappers import LMStudio
+        return LMStudio
     if name == "Memory":
         from .client import Memory
 
@@ -45,5 +48,5 @@ def __getattr__(name):
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
 
-__all__ = ["Memory", "OpenAI", "Claude", "Gemini", "Ollama"]
+__all__ = ["Memory", "OpenAI", "Claude", "Gemini", "Ollama", "LMStudio"]
 

@@ -197,7 +197,7 @@ Memlayer works with all major LLM providers:
 
 ### OpenAI
 ```python
-from memlayer.wrappers.openai import OpenAI
+from memlayer import OpenAI
 
 client = OpenAI(
     model="gpt-4.1-mini",  # or gpt-4.1, gpt-5, etc.
@@ -208,7 +208,7 @@ client = OpenAI(
 
 ### Claude (Anthropic)
 ```python
-from memlayer.wrappers.claude import Claude
+from memlayer import Claude
 
 client = Claude(
     model="claude-4-sonnet",
@@ -219,7 +219,7 @@ client = Claude(
 
 ### Google Gemini
 ```python
-from memlayer.wrappers.gemini import Gemini
+from memlayer import Gemini
 
 client = Gemini(
     model="gemini-2.5-flash",
@@ -230,14 +230,25 @@ client = Gemini(
 
 ### Ollama (Local)
 ```python
-from memlayer.wrappers.ollama import Ollama
+from memlayer import Ollama
 
 client = Ollama(
     host="http://localhost:11434",
-    model="qwen3:1.7b",  # or llama3.2, mistral, etc.
+    model="qwen3:14b",  # or llama3.2, mistral, etc.
     storage_path="./memories",
     user_id="user_123",
     salience_mode="local"  # Run 100% offline!
+)
+```
+### LMStudio (Local)
+```python
+from memlayer import LMStudio
+
+client = LMStudio(
+    host="http://localhost:11434/v1",
+    model="qwen/qwen3-14b",
+    storage_path="./memories",
+    user_id="user_123",
 )
 ```
 

@@ -24,8 +24,10 @@ class Trace(BaseModel):
     events: List[TraceEvent] = Field(default_factory=list)
     final_result: Optional[Any] = None
     final_error: Optional[str] = None
+    
+    # --- FIX 1: Added top-level metadata field ---
+    metadata: Dict[str, Any] = Field(default_factory=dict)
 
-    # --- FIX 1: Add `metadata` parameter to start_event ---
     def start_event(self, name: str, metadata: Dict = None) -> 'TraceContextManager':
         """Creates a context manager to automatically time a block of code."""
         return TraceContextManager(self, name, metadata)
@@ -40,14 +42,18 @@ class Trace(BaseModel):
         )
         self.events.append(event)
 
-    # --- FIX 2: Add `error` parameter to conclude ---
-    def conclude(self, result: Any = None, error: Optional[Exception] = None):
+    # --- FIX 2: Added metadata argument to conclude to populate results_found etc. ---
+    def conclude(self, result: Any = None, error: Optional[Exception] = None, metadata: Dict[str, Any] = None):
         """Finalizes the trace, calculating total duration and storing the result."""
         self.end_time = datetime.now(timezone.utc)
         self.total_duration_ms = (self.end_time - self.start_time).total_seconds() * 1000
         self.final_result = result
+        
         if error:
             self.final_error = str(error)
+            
+        if metadata:
+            self.metadata.update(metadata)
 
     def summary(self) -> str:
         """Provides a simple, human-readable summary of the trace."""
@@ -55,6 +61,10 @@ class Trace(BaseModel):
         if self.final_error:
             s += f" - FAILED: {self.final_error}"
         s += "\n"
+        
+        # Global metadata (e.g. results found)
+        if self.metadata:
+            s += f"  [Metadata]: {json.dumps(self.metadata)}\n"
         
         for event in self.events:
             s += f"  - Event '{event.name}': {event.duration_ms:.2f}ms"
@@ -67,7 +77,6 @@ class Trace(BaseModel):
 
 class TraceContextManager:
     """A context manager to automatically time events and handle exceptions."""
-    # --- FIX 3: Accept and store metadata in __init__ ---
     def __init__(self, trace: Trace, name: str, metadata: Dict = None):
         self.trace = trace
         self.name = name
@@ -81,8 +90,8 @@ class TraceContextManager:
     def __exit__(self, exc_type, exc_val, exc_tb):
         duration_ms = (time.perf_counter() - self.start_time) * 1000
         error = exc_val if exc_type else None
-        # Now, when we add the event, the metadata is correctly passed through.
         self.trace.add_event(self.name, duration_ms, self.metadata, error)
+
 class AnswerObject(BaseModel):
     """
     A structured object containing the full results of a synthesize_answer call.
