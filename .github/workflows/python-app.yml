@@ -14,7 +14,138 @@ permissions:
 
 jobs:
   build:
-
+            - name: Deploy Ollama and Open WebUI
+  # You may pin to the exact commit or the version.
+  # uses: bitovi/github-actions-deploy-ollama@8f8149c4e81f93e93e8f591264083d611870871f
+  uses: bitovi/github-actions-deploy-ollama@v0
+  with:
+    # Disable user signup for the application.
+    disable_signup: # optional, default is false
+    # Comma separated list of models to download automatically.
+    ollama_models: # optional, default is 
+    # AWS access key ID
+    aws_access_key_id: # optional
+    # AWS secret access key
+    aws_secret_access_key: # optional
+    # AWS session token
+    aws_session_token: # optional
+    # AWS default region
+    aws_default_region: # optional, default is us-east-1
+    # Set to override the AWS resource identifier for the deployment.  Defaults to `${org}-{repo}-{branch}`.  Use with destroy to destroy specific resources.
+    aws_resource_identifier: # optional
+    # A JSON object of additional tags that will be included on created resources. Example: `{"key1": "value1", "key2": "value2"}`
+    aws_additional_tags: # optional
+    # Specifies if this action should checkout the code
+    checkout: # optional, default is true
+    # Whether to destroy the Terraform stack on completion.
+    tf_stack_destroy: # optional, default is false
+    # The name of the Terraform state file.
+    tf_state_file_name: 
+    # Append a suffix to the state file name to allow unique state management.
+    tf_state_file_name_append: # optional
+    # The S3 bucket name where the Terraform state file will be stored.
+    tf_state_bucket: 
+    # Whether to destroy the state bucket on stack completion.
+    tf_state_bucket_destroy: # optional
+    # Make Ansible connect to the private IP of the instance. Only usefull if using a hosted runner in the same network.
+    ansible_ssh_to_private_ip: # optional
+    # Ammount of time in seconds it takes Ansible to mark as failed the startup of docker. Defaults to `300`
+    ansible_start_docker_timeout: # optional
+    # Secret name to pull env variables from AWS Secret Manager, could be a comma separated list, read in order. Expected JSON content.
+    env_aws_secret: # optional
+    # File containing environment variables to be used with the app
+    env_repo: # optional
+    # GitHub Secret Name containing `.env` file style to be used with the app.
+    env_ghs: # optional
+    # GitHub Variable Name containing `.env` file style to be used with the app.
+    env_ghv: # optional
+    # Define if an EC2 instance should be created
+    aws_ec2_instance_create: # optional, default is true
+    # AWS AMI Filter string. Will be used to lookup for lates image based on the string. Defaults to `ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*`.
+    aws_ec2_ami_filter: # optional
+    # Owner of AWS AMI image. This ensures the provider is the one we are looking for. Defaults to `099720109477`, Canonical (Ubuntu).
+    aws_ec2_ami_owner: # optional
+    # AWS AMI ID. Will default to lookup for latest image of the `aws_ec2_ami_filter` string. This will override `aws_ec2_ami_filter` lookup.
+    aws_ec2_ami_id: # optional
+    # Set this to true if you want to recreate the EC2 instance if there is a newer version of the AMI.
+    aws_ec2_ami_update: # optional
+    # The AWS IAM instance profile to use for the EC2 instance
+    aws_ec2_iam_instance_profile: # optional
+    # Type of AWS EC2 instance to deploy.
+    aws_ec2_instance_type: # optional, default is inf1.xlarge
+    # Define the volume size (in GiB) for the root volume on the AWS Instance.
+    aws_ec2_instance_root_vol_size: # optional, default is 20
+    # Set this to true to avoid deletion of root volume on termination. Defaults to false.
+    aws_ec2_instance_root_vol_preserve: # optional
+    # The name of the EC2 security group
+    aws_ec2_security_group_name: # optional
+    # Create a key pair using AWS Secrets Manager.
+    aws_ec2_create_keypair_sm: # optional
+    # Add a public IP to the instance or not. (Not an Elastic IP)
+    aws_ec2_instance_public_ip: # optional, default is true
+    # List of ports to be enabled as an ingress rule in the EC2 SG, in a [xx,yy] format - Not the ELB
+    aws_ec2_port_list: # optional
+    # A JSON object of additional tags that will be included on created resources. Example: `{"key1": "value1", "key2": "value2"}`
+    aws_ec2_additional_tags: # optional
+    # Define if a VPC should be created
+    aws_vpc_create: # optional
+    # Set a specific name for the VPC
+    aws_vpc_name: # optional
+    # Define Base CIDR block which is divided into subnet CIDR blocks. Defaults to 10.0.0.0/16.
+    aws_vpc_cidr_block: # optional
+    # Comma separated list of public subnets. Defaults to 10.10.110.0/24
+    aws_vpc_public_subnets: # optional
+    # Comma separated list of private subnets. If none, none will be created.
+    aws_vpc_private_subnets: # optional
+    # Comma separated list of availability zones. Defaults to `aws_default_region.
+    aws_vpc_availability_zones: # optional
+    # AWS VPC ID. Accepts `vpc-###` values.
+    aws_vpc_id: # optional
+    # Specify a Subnet to be used with the instance. If none provided, will pick one.
+    aws_vpc_subnet_id: # optional
+    # Enables NAT gateway
+    aws_vpc_enable_nat_gateway: # optional
+    # Creates only one NAT gateway
+    aws_vpc_single_nat_gateway: # optional
+    # Comma separated list of IP IDS to reuse in the NAT gateways
+    aws_vpc_external_nat_ip_ids: # optional
+    # A JSON object of additional tags that will be included on created resources. Example: `{"key1": "value1", "key2": "value2"}`
+    aws_vpc_additional_tags: # optional
+    # Enables the usage of Route53 to manage DNS records.
+    aws_r53_enable: # optional
+    # Define the root domain name for the application. e.g. app.com
+    aws_r53_domain_name: # optional
+    # Define the sub-domain part of the URL. Defaults to `${org}-${repo}-{branch}`
+    aws_r53_sub_domain_name: # optional
+    # Deploy to root domain. Will generate two DNS recrods, one for root, another for www
+    aws_r53_root_domain_deploy: # optional
+    # Makes the application use a certificate by enabling a certificate lookup.
+    aws_r53_enable_cert: # optional, default is true
+    # Define the certificate ARN to use for the application
+    aws_r53_cert_arn: # optional
+    # Generates and manage the root cert for the application
+    aws_r53_create_root_cert: # optional
+    # Generates and manage the sub-domain certificate for the application
+    aws_r53_create_sub_cert: # optional
+    # A JSON object of additional tags that will be included on created resources. Example: `{"key1": "value1", "key2": "value2"}`
+    aws_r53_additional_tags: # optional
+    # Define if docker should be installed. After this, docker-compose up will be excecuted.
+    docker_install: # optional, default is true
+    # Toggle --remove-orphans flag. Defaults to false.
+    docker_remove_orphans: # optional
+    # Set to true to run docker-compose down and docker system prune --all --force --volumes after.
+    docker_full_cleanup: # optional
+    # Will generate a timestamped compressed file and delete the app repo directory.
+    docker_repo_app_directory_cleanup: # optional
+    # Toggle cloudwatch creation for Docker containers.
+    docker_cloudwatch_enable: # optional, default is true
+    # Log group name. Will default to aws_identifier if none.
+    docker_cloudwatch_lg_name: # optional
+    # Toggle deletion or not when destroying the stack.
+    docker_cloudwatch_skip_destroy: # optional
+    # Number of days to retain logs. 0 to never expire.
+    docker_cloudwatch_retention_days: # optional
+          
     runs-on: ubuntu-latest
 
     steps:
